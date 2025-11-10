@@ -184,11 +184,20 @@ try {{
     foreach ($Event in $Events) {{
         $Output = "Event ID: $($Event.Id) TimeCreated: $($Event.TimeCreated.ToString('yyyy-MM-ddTHH:mm:ss'))"
 
-        # Extract properties from event
-        foreach ($Property in $Event.Properties) {{
-            if ($Property.Value -ne $null -and $Property.Value -ne '') {{
-                $Value = $Property.Value.ToString().Replace(':', '_').Replace(' ', '_')
-                $Output += " Prop_$($Property.Value): $Value"
+        # Convert event to XML to get property names
+        $EventXml = [xml]$Event.ToXml()
+        $EventData = $EventXml.Event.EventData
+
+        if ($EventData -and $EventData.Data) {{
+            foreach ($Data in $EventData.Data) {{
+                $Name = $Data.Name
+                $Value = $Data.'#text'
+
+                if ($Value -and $Name) {{
+                    # Escape special characters in value
+                    $Value = $Value.ToString().Replace('"', '""')
+                    $Output += " $Name`: $Value"
+                }}
             }}
         }}
 
