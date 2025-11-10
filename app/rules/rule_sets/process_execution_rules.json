@@ -1,0 +1,69 @@
+{
+  "group_name": "process_execution",
+  "description": "Process creation and execution monitoring",
+  "enabled": true,
+  "rules": [
+    {
+      "rule_id": 3001,
+      "name": "PowerShell Execution",
+      "description": "PowerShell process started",
+      "level": 4,
+      "category": "process",
+      "mitre_tactic": "Execution",
+      "mitre_technique": "T1059.001",
+      "tags": [
+        "powershell",
+        "execution"
+      ],
+      "match_all": false,
+      "conditions": [
+        {
+          "field": "process_name",
+          "operator": "contains",
+          "value": "powershell",
+          "case_sensitive": false
+        },
+        {
+          "field": "event_type",
+          "operator": "contains",
+          "value": "process",
+          "case_sensitive": false
+        }
+      ]
+    },
+    {
+      "rule_id": 3002,
+      "name": "Suspicious Command Line",
+      "description": "Detected suspicious command line execution",
+      "level": 8,
+      "category": "process",
+      "mitre_tactic": "Execution",
+      "mitre_technique": "T1059",
+      "tags": [
+        "command_line",
+        "suspicious"
+      ],
+      "match_all": false,
+      "conditions": [
+        {
+          "field": "command_line",
+          "operator": "contains",
+          "value": "whoami",
+          "case_sensitive": false
+        },
+        {
+          "field": "command_line",
+          "operator": "contains",
+          "value": "net user",
+          "case_sensitive": false
+        },
+        {
+          "field": "command_line",
+          "operator": "contains",
+          "value": "tasklist",
+          "case_sensitive": false
+        }
+      ]
+    }
+  ]
+}

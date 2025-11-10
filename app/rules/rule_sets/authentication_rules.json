@@ -1,0 +1,79 @@
+{
+  "group_name": "authentication",
+  "description": "Authentication and access control rules",
+  "enabled": true,
+  "rules": [
+    {
+      "rule_id": 1001,
+      "name": "Failed Login Attempt",
+      "description": "Detects failed authentication attempts",
+      "level": 5,
+      "category": "authentication",
+      "mitre_tactic": "Initial Access",
+      "mitre_technique": "T1078",
+      "tags": [
+        "authentication",
+        "failed_login"
+      ],
+      "match_all": false,
+      "conditions": [
+        {
+          "field": "event_type",
+          "operator": "contains",
+          "value": "logon",
+          "case_sensitive": false
+        },
+        {
+          "field": "event_type",
+          "operator": "contains",
+          "value": "login",
+          "case_sensitive": false
+        },
+        {
+          "field": "status",
+          "operator": "contains",
+          "value": "fail",
+          "case_sensitive": false
+        },
+        {
+          "field": "result",
+          "operator": "contains",
+          "value": "fail",
+          "case_sensitive": false
+        }
+      ]
+    },
+    {
+      "rule_id": 1002,
+      "name": "Successful Privileged Login",
+      "description": "Successful login with administrative privileges",
+      "level": 3,
+      "category": "authentication",
+      "tags": [
+        "authentication",
+        "privileged_access"
+      ],
+      "match_all": true,
+      "conditions": [
+        {
+          "field": "event_type",
+          "operator": "contains",
+          "value": "logon",
+          "case_sensitive": false
+        },
+        {
+          "field": "status",
+          "operator": "contains",
+          "value": "success",
+          "case_sensitive": false
+        },
+        {
+          "field": "user",
+          "operator": "contains",
+          "value": "admin",
+          "case_sensitive": false
+        }
+      ]
+    }
+  ]
+}

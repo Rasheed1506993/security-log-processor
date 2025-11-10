@@ -1,0 +1,64 @@
+{
+  "group_name": "network",
+  "description": "Network activity monitoring",
+  "enabled": true,
+  "rules": [
+    {
+      "rule_id": 4001,
+      "name": "Firewall Block Event",
+      "description": "Firewall blocked a connection",
+      "level": 6,
+      "category": "network",
+      "tags": [
+        "firewall",
+        "blocked"
+      ],
+      "match_all": true,
+      "conditions": [
+        {
+          "field": "event_type",
+          "operator": "contains",
+          "value": "firewall",
+          "case_sensitive": false
+        },
+        {
+          "field": "action",
+          "operator": "contains",
+          "value": "block",
+          "case_sensitive": false
+        }
+      ]
+    },
+    {
+      "rule_id": 4002,
+      "name": "Outbound Connection to Suspicious Port",
+      "description": "Connection attempt to commonly malicious port",
+      "level": 7,
+      "category": "network",
+      "mitre_tactic": "Command and Control",
+      "mitre_technique": "T1071",
+      "tags": [
+        "network",
+        "suspicious_port"
+      ],
+      "match_all": true,
+      "conditions": [
+        {
+          "field": "direction",
+          "operator": "equals",
+          "value": "outbound",
+          "case_sensitive": false
+        },
+        {
+          "field": "dest_port",
+          "operator": "in_list",
+          "value": [
+            4444,
+            1337,
+            31337
+          ]
+        }
+      ]
+    }
+  ]
+}

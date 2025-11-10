@@ -1,0 +1,18 @@
+# Unknown Log Entries
+# Generated: 2025-11-06T01:27:44.367619
+# Total unknown entries: 4
+# These logs could not be decoded by any parser
+# Please review and update decoders if needed
+
+[Line 83]
+<Event>
+
+[Line 88]
+  <Details>
+
+[Line 93]
+  </Details>
+
+[Line 94]
+</Event>
+

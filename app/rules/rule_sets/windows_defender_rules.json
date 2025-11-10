@@ -1,0 +1,56 @@
+{
+  "group_name": "windows_defender",
+  "description": "Windows Defender antivirus detections",
+  "enabled": true,
+  "rules": [
+    {
+      "rule_id": 2001,
+      "name": "Windows Defender Malware Detection",
+      "description": "Windows Defender detected malware",
+      "level": 12,
+      "category": "malware",
+      "mitre_tactic": "Execution",
+      "mitre_technique": "T1204",
+      "tags": [
+        "defender",
+        "malware",
+        "threat"
+      ],
+      "match_all": true,
+      "conditions": [
+        {
+          "field": "source",
+          "operator": "contains",
+          "value": "defender",
+          "case_sensitive": false
+        },
+        {
+          "field": "event_type",
+          "operator": "contains",
+          "value": "threat",
+          "case_sensitive": false
+        }
+      ]
+    },
+    {
+      "rule_id": 2002,
+      "name": "Suspicious File Quarantined",
+      "description": "File was quarantined by Windows Defender",
+      "level": 8,
+      "category": "malware",
+      "tags": [
+        "defender",
+        "quarantine"
+      ],
+      "match_all": true,
+      "conditions": [
+        {
+          "field": "action",
+          "operator": "contains",
+          "value": "quarantine",
+          "case_sensitive": false
+        }
+      ]
+    }
+  ]
+}

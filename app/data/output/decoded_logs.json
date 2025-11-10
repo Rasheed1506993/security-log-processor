@@ -1,0 +1,316 @@
+{
+  "decoding_completed_at": "2025-11-06T01:27:44.365560",
+  "source_file": "D:\\Server_decoding\\security-log-processor\\app\\data\\input\\agent_logs.txt",
+  "total_decoded_logs": 15,
+  "decoder_statistics": {
+    "basic_decoder": {
+      "total_processed": 19,
+      "successful_decodes": 1,
+      "failed_decodes": 18
+    },
+    "windows_decoder": {
+      "windows_events_decoded": 1,
+      "defender_events": 0,
+      "security_events": 1,
+      "sysmon_events": 0,
+      "powershell_events": 0,
+      "firewall_events": 0,
+      "applocker_events": 0
+    },
+    "generic_decoder": {
+      "json_decoded": 5,
+      "kv_decoded": 0,
+      "xml_decoded": 8,
+      "failed": 4
+    }
+  },
+  "decoded_logs": [
+    {
+      "log_type": "generic_json",
+      "raw_data": {
+        "timestamp": "2025-11-05T10:15:00",
+        "event_type": "authentication",
+        "user": "admin",
+        "source_ip": "192.168.1.100",
+        "result": "failed",
+        "reason": "invalid_password",
+        "severity": "high",
+        "details": {
+          "attempts": 3,
+          "locked": false
+        }
+      },
+      "extracted_fields": {
+        "timestamp": "2025-11-05T10:15:00",
+        "user": "admin",
+        "source_ip": "192.168.1.100",
+        "status": "failed",
+        "severity": "high"
+      },
+      "severity": "high",
+      "field_count": 8,
+      "timestamp": "2025-11-05T10:15:00",
+      "decoder_used": "generic",
+      "line_number": 1,
+      "raw_log": "{\n  \"timestamp\": \"2025-11-05T10:15:00\",\n  \"event_type\": \"authentication\",\n  \"user\": \"admin\",\n  \"source_ip\": \"192.168.1.100\",\n  \"result\": \"failed\",\n  \"reason\": \"invalid_password\",\n  \"severity\": \"high\",\n  \"details\": {\n    \"attempts\": 3,\n    \"locked\": false\n  }\n}"
+    },
+    {
+      "log_type": "generic_json",
+      "raw_data": {
+        "timestamp": "2025-11-05T10:16:00",
+        "event_type": "file_access",
+        "user": "john.doe",
+        "file_path": "/etc/shadow",
+        "action": "read",
+        "result": "denied",
+        "severity": "high",
+        "process": {
+          "name": "cat",
+          "pid": 12345,
+          "parent": "bash"
+        }
+      },
+      "extracted_fields": {
+        "timestamp": "2025-11-05T10:16:00",
+        "user": "john.doe",
+        "action": "read",
+        "status": "denied",
+        "severity": "high"
+      },
+      "severity": "high",
+      "field_count": 8,
+      "timestamp": "2025-11-05T10:16:00",
+      "decoder_used": "generic",
+      "line_number": 15,
+      "raw_log": "{\n  \"timestamp\": \"2025-11-05T10:16:00\",\n  \"event_type\": \"file_access\",\n  \"user\": \"john.doe\",\n  \"file_path\": \"/etc/shadow\",\n  \"action\": \"read\",\n  \"result\": \"denied\",\n  \"severity\": \"high\",\n  \"process\": {\n    \"name\": \"cat\",\n    \"pid\": 12345,\n    \"parent\": \"bash\"\n  }\n}"
+    },
+    {
+      "log_type": "security_logon_failed",
+      "event_id": 4625,
+      "event_category": "windows_security",
+      "timestamp": "2025-11-05T10:17:00",
+      "event_data": {},
+      "severity": "high",
+      "logon_type": "Unknown",
+      "target_user": "Unknown",
+      "source_ip": "Unknown",
+      "logon_process": "Unknown",
+      "authentication_package": "Unknown",
+      "decoder_used": "windows",
+      "line_number": 30,
+      "raw_log": "Event ID: 4625 TimeCreated: 2025-11-05T10:17:00 LogonType: 3 TargetUserName: Administrator IpAddress: 192.168.1.200"
+    },
+    {
+      "log_type": "generic_json",
+      "raw_data": {
+        "timestamp": "2025-11-05T10:18:00",
+        "event_type": "network_connection",
+        "source": {
+          "ip": "192.168.1.100",
+          "port": 54321,
+          "hostname": "workstation-01"
+        },
+        "destination": {
+          "ip": "45.33.32.156",
+          "port": 4444,
+          "country": "unknown"
+        },
+        "protocol": "TCP",
+        "bytes_transferred": 15420,
+        "duration_seconds": 120,
+        "severity": "high",
+        "threat_indicators": [
+          "suspicious_port",
+          "unknown_destination",
+          "unusual_traffic_pattern"
+        ]
+      },
+      "extracted_fields": {
+        "timestamp": "2025-11-05T10:18:00",
+        "severity": "high"
+      },
+      "severity": "high",
+      "field_count": 9,
+      "timestamp": "2025-11-05T10:18:00",
+      "decoder_used": "generic",
+      "line_number": 32,
+      "raw_log": "{\n  \"timestamp\": \"2025-11-05T10:18:00\",\n  \"event_type\": \"network_connection\",\n  \"source\": {\n    \"ip\": \"192.168.1.100\",\n    \"port\": 54321,\n    \"hostname\": \"workstation-01\"\n  },\n  \"destination\": {\n    \"ip\": \"45.33.32.156\",\n    \"port\": 4444,\n    \"country\": \"unknown\"\n  },\n  \"protocol\": \"TCP\",\n  \"bytes_transferred\": 15420,\n  \"duration_seconds\": 120,\n  \"severity\": \"high\",\n  \"threat_indicators\": [\n    \"suspicious_port\",\n    \"unknown_destination\",\n    \"unusual_traffic_pattern\"\n  ]\n}"
+    },
+    {
+      "log_type": "file_integrity",
+      "timestamp": "2025-11-05 10:19:00",
+      "action": "modified",
+      "file_path": "C:\\Windows\\System32\\drivers\\etc\\hosts",
+      "file_name": "hosts",
+      "file_extension": "",
+      "directory": "C:\\Windows\\System32\\drivers\\etc",
+      "severity": "high",
+      "decoder_used": "basic",
+      "line_number": 56,
+      "raw_log": "FIM [2025-11-05 10:19:00] modified: C:\\Windows\\System32\\drivers\\etc\\hosts"
+    },
+    {
+      "log_type": "generic_json",
+      "raw_data": {
+        "timestamp": "2025-11-05T10:20:00",
+        "event_type": "process_execution",
+        "process": {
+          "name": "powershell.exe",
+          "pid": 8765,
+          "parent_pid": 1234,
+          "parent_name": "explorer.exe",
+          "command_line": "powershell.exe -ExecutionPolicy Bypass -EncodedCommand SGVsbG8gV29ybGQ=",
+          "user": "DOMAIN\\user",
+          "integrity_level": "high"
+        },
+        "file_info": {
+          "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "hash": "SHA256:abc123def456",
+          "signed": true,
+          "signer": "Microsoft Corporation"
+        },
+        "severity": "high",
+        "flags": [
+          "execution_policy_bypass",
+          "encoded_command"
+        ]
+      },
+      "extracted_fields": {
+        "timestamp": "2025-11-05T10:20:00",
+        "severity": "high"
+      },
+      "severity": "high",
+      "field_count": 6,
+      "timestamp": "2025-11-05T10:20:00",
+      "decoder_used": "generic",
+      "line_number": 58,
+      "raw_log": "{\n  \"timestamp\": \"2025-11-05T10:20:00\",\n  \"event_type\": \"process_execution\",\n  \"process\": {\n    \"name\": \"powershell.exe\",\n    \"pid\": 8765,\n    \"parent_pid\": 1234,\n    \"parent_name\": \"explorer.exe\",\n    \"command_line\": \"powershell.exe -ExecutionPolicy Bypass -EncodedCommand SGVsbG8gV29ybGQ=\",\n    \"user\": \"DOMAIN\\\\user\",\n    \"integrity_level\": \"high\"\n  },\n  \"file_info\": {\n    \"path\": \"C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\n    \"hash\": \"SHA256:abc123def456\",\n    \"signed\": "
+    },
+    {
+      "log_type": "generic_xml",
+      "raw_data": {
+        "_text": "2025-11-05T10:21:00"
+      },
+      "extracted_fields": {},
+      "severity": "medium",
+      "field_count": 1,
+      "decoder_used": "generic",
+      "line_number": 84,
+      "raw_log": "  <Timestamp>2025-11-05T10:21:00</Timestamp>"
+    },
+    {
+      "log_type": "generic_xml",
+      "raw_data": {
+        "_text": "security_alert"
+      },
+      "extracted_fields": {},
+      "severity": "medium",
+      "field_count": 1,
+      "decoder_used": "generic",
+      "line_number": 85,
+      "raw_log": "  <Type>security_alert</Type>"
+    },
+    {
+      "log_type": "generic_xml",
+      "raw_data": {
+        "_text": "critical"
+      },
+      "extracted_fields": {},
+      "severity": "medium",
+      "field_count": 1,
+      "decoder_used": "generic",
+      "line_number": 86,
+      "raw_log": "  <Severity>critical</Severity>"
+    },
+    {
+      "log_type": "generic_xml",
+      "raw_data": {
+        "_text": "Malware detected and quarantined"
+      },
+      "extracted_fields": {},
+      "severity": "high",
+      "field_count": 1,
+      "decoder_used": "generic",
+      "line_number": 87,
+      "raw_log": "  <Message>Malware detected and quarantined</Message>"
+    },
+    {
+      "log_type": "generic_xml",
+      "raw_data": {
+        "_text": "Trojan:Win32/Meterpreter"
+      },
+      "extracted_fields": {},
+      "severity": "medium",
+      "field_count": 1,
+      "decoder_used": "generic",
+      "line_number": 89,
+      "raw_log": "    <ThreatName>Trojan:Win32/Meterpreter</ThreatName>"
+    },
+    {
+      "log_type": "generic_xml",
+      "raw_data": {
+        "_text": "C:\\Users\\user\\Downloads\\suspicious.exe"
+      },
+      "extracted_fields": {},
+      "severity": "medium",
+      "field_count": 1,
+      "decoder_used": "generic",
+      "line_number": 90,
+      "raw_log": "    <FilePath>C:\\Users\\user\\Downloads\\suspicious.exe</FilePath>"
+    },
+    {
+      "log_type": "generic_xml",
+      "raw_data": {
+        "_text": "Quarantined"
+      },
+      "extracted_fields": {},
+      "severity": "medium",
+      "field_count": 1,
+      "decoder_used": "generic",
+      "line_number": 91,
+      "raw_log": "    <Action>Quarantined</Action>"
+    },
+    {
+      "log_type": "generic_xml",
+      "raw_data": {
+        "_text": "MD5:12345abcde"
+      },
+      "extracted_fields": {},
+      "severity": "medium",
+      "field_count": 1,
+      "decoder_used": "generic",
+      "line_number": 92,
+      "raw_log": "    <Hash>MD5:12345abcde</Hash>"
+    },
+    {
+      "log_type": "generic_json",
+      "raw_data": {
+        "timestamp": "2025-11-05T10:22:00",
+        "event_type": "registry_modification",
+        "registry": {
+          "key": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+          "value_name": "Persistence",
+          "value_data": "C:\\Users\\Public\\malware.exe",
+          "operation": "SetValue"
+        },
+        "process": {
+          "name": "reg.exe",
+          "pid": 4567,
+          "user": "SYSTEM"
+        },
+        "severity": "critical",
+        "persistence_indicator": true
+      },
+      "extracted_fields": {
+        "timestamp": "2025-11-05T10:22:00",
+        "severity": "critical"
+      },
+      "severity": "high",
+      "field_count": 6,
+      "timestamp": "2025-11-05T10:22:00",
+      "decoder_used": "generic",
+      "line_number": 96,
+      "raw_log": "{\n  \"timestamp\": \"2025-11-05T10:22:00\",\n  \"event_type\": \"registry_modification\",\n  \"registry\": {\n    \"key\": \"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run\",\n    \"value_name\": \"Persistence\",\n    \"value_data\": \"C:\\\\Users\\\\Public\\\\malware.exe\",\n    \"operation\": \"SetValue\"\n  },\n  \"process\": {\n    \"name\": \"reg.exe\",\n    \"pid\": 4567,\n    \"user\": \"SYSTEM\"\n  },\n  \"severity\": \"critical\",\n  \"persistence_indicator\": true\n}"
+    }
+  ]
+}

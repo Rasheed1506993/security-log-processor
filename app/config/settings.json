@@ -1,0 +1,65 @@
+{
+  "paths": {
+    "input_logs": "data/input/agent_logs.txt",
+    "output_context": "data/output/processed_context.json",
+    "unknown_logs": "data/output/unknown_logs.txt",
+    "rules_file": "rules/security_rules.json"
+  },
+  "processing": {
+    "batch_size": 1000,
+    "enable_caching": true,
+    "log_level": "INFO",
+    "save_unknown_logs": true
+  },
+  "severity_thresholds": {
+    "high_risk_score": 30,
+    "medium_risk_score": 10
+  },
+  "windows_event_ids": {
+    "defender_threats": [
+      1116,
+      1117,
+      1118,
+      1119
+    ],
+    "defender_updates": [
+      2000,
+      2001,
+      2002
+    ],
+    "security_logon": [
+      4624,
+      4625,
+      4634
+    ],
+    "security_privilege": [
+      4672,
+      4673,
+      4674
+    ],
+    "security_account": [
+      4720,
+      4722,
+      4724,
+      4726
+    ],
+    "firewall_block": [
+      5031,
+      5152,
+      5154,
+      5157
+    ],
+    "applocker_block": [
+      8003,
+      8004,
+      8006,
+      8007
+    ],
+    "powershell_execution": [
+      4103,
+      4104,
+      4105,
+      4106
+    ]
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "timestamp": "2025-11-05T10:15:00",
+  "event_type": "authentication",
+  "user": "admin",
+  "source_ip": "192.168.1.100",
+  "result": "failed",
+  "reason": "invalid_password",
+  "severity": "high",
+  "details": {
+    "attempts": 3,
+    "locked": false
+  }
+}
+
+{
+  "timestamp": "2025-11-05T10:16:00",
+  "event_type": "file_access",
+  "user": "john.doe",
+  "file_path": "/etc/shadow",
+  "action": "read",
+  "result": "denied",
+  "severity": "high",
+  "process": {
+    "name": "cat",
+    "pid": 12345,
+    "parent": "bash"
+  }
+}
+
+Event ID: 4625 TimeCreated: 2025-11-05T10:17:00 LogonType: 3 TargetUserName: Administrator IpAddress: 192.168.1.200
+
+{
+  "timestamp": "2025-11-05T10:18:00",
+  "event_type": "network_connection",
+  "source": {
+    "ip": "192.168.1.100",
+    "port": 54321,
+    "hostname": "workstation-01"
+  },
+  "destination": {
+    "ip": "45.33.32.156",
+    "port": 4444,
+    "country": "unknown"
+  },
+  "protocol": "TCP",
+  "bytes_transferred": 15420,
+  "duration_seconds": 120,
+  "severity": "high",
+  "threat_indicators": [
+    "suspicious_port",
+    "unknown_destination",
+    "unusual_traffic_pattern"
+  ]
+}
+
+FIM [2025-11-05 10:19:00] modified: C:\Windows\System32\drivers\etc\hosts
+
+{
+  "timestamp": "2025-11-05T10:20:00",
+  "event_type": "process_execution",
+  "process": {
+    "name": "powershell.exe",
+    "pid": 8765,
+    "parent_pid": 1234,
+    "parent_name": "explorer.exe",
+    "command_line": "powershell.exe -ExecutionPolicy Bypass -EncodedCommand SGVsbG8gV29ybGQ=",
+    "user": "DOMAIN\\user",
+    "integrity_level": "high"
+  },
+  "file_info": {
+    "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "hash": "SHA256:abc123def456",
+    "signed": true,
+    "signer": "Microsoft Corporation"
+  },
+  "severity": "high",
+  "flags": [
+    "execution_policy_bypass",
+    "encoded_command"
+  ]
+}
+
+<Event>
+  <Timestamp>2025-11-05T10:21:00</Timestamp>
+  <Type>security_alert</Type>
+  <Severity>critical</Severity>
+  <Message>Malware detected and quarantined</Message>
+  <Details>
+    <ThreatName>Trojan:Win32/Meterpreter</ThreatName>
+    <FilePath>C:\Users\user\Downloads\suspicious.exe</FilePath>
+    <Action>Quarantined</Action>
+    <Hash>MD5:12345abcde</Hash>
+  </Details>
+</Event>
+
+{
+  "timestamp": "2025-11-05T10:22:00",
+  "event_type": "registry_modification",
+  "registry": {
+    "key": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+    "value_name": "Persistence",
+    "value_data": "C:\\Users\\Public\\malware.exe",
+    "operation": "SetValue"
+  },
+  "process": {
+    "name": "reg.exe",
+    "pid": 4567,
+    "user": "SYSTEM"
+  },
+  "severity": "critical",
+  "persistence_indicator": true
+}

