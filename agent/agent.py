@@ -200,6 +200,12 @@ class SecurityAgent:
     def _on_process_event(self, process_info: dict):
         """Handle process creation event."""
         try:
+            # Filter out agent's own PowerShell processes
+            cmdline = process_info.get('cmdline', '').lower()
+            if 'powershell' in cmdline and 'get-winevent' in cmdline:
+                # Skip agent's own event collection processes
+                return
+
             # Format depending on configuration
             if self.config['output']['format'] == 'json':
                 # JSON format
