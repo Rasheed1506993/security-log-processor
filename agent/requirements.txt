@@ -1,0 +1,13 @@
+# Windows Security Log Collection Agent - Requirements
+
+# Core dependencies
+psutil>=5.9.0                # Process and network monitoring
+watchdog>=3.0.0              # File system monitoring
+
+# Windows-specific dependencies (optional, for advanced features)
+# pywin32>=305               # Windows API access (optional)
+# wmi>=1.5.1                 # Windows Management Instrumentation (optional)
+
+# Note: This agent uses subprocess to call PowerShell and reg commands,
+# so pywin32 and wmi are optional for basic functionality.
+# Install them for enhanced Windows integration.
