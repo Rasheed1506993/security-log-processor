@@ -1,0 +1,47 @@
+{
+  "collectors": {
+    "windows_events": {
+      "enabled": true,
+      "poll_interval": 10,
+      "description": "Collects Windows Event Logs (Security, Defender, Firewall, PowerShell)"
+    },
+    "file_integrity": {
+      "enabled": true,
+      "recursive": false,
+      "watch_paths": [
+        "C:\\Windows\\System32",
+        "C:\\Windows\\SysWOW64",
+        "C:\\Windows\\System32\\drivers",
+        "C:\\Program Files"
+      ],
+      "description": "Monitors file system changes in critical directories"
+    },
+    "process_monitoring": {
+      "enabled": true,
+      "poll_interval": 2,
+      "description": "Detects new process creation and tracks process information"
+    },
+    "network_monitoring": {
+      "enabled": true,
+      "poll_interval": 5,
+      "description": "Monitors network connections and detects new connections"
+    },
+    "registry_monitoring": {
+      "enabled": true,
+      "poll_interval": 30,
+      "description": "Monitors Windows Registry changes in critical keys"
+    }
+  },
+  "output": {
+    "log_file": "../app/data/input/agent_logs.txt",
+    "max_size_mb": 100,
+    "backup_count": 5,
+    "format": "mixed",
+    "description": "Output settings - format can be: mixed, basic, windows, json"
+  },
+  "general": {
+    "run_as_service": false,
+    "log_level": "INFO",
+    "stats_interval": 60
+  }
+}
