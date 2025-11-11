@@ -1,6 +1,6 @@
 # Windows Security Log Collection Agent (.NET Edition)
 
-High-performance security log collection agent written in C# .NET 6.0 for Windows systems.
+High-performance security log collection agent written in C# .NET 8.0 for Windows systems.
 
 ## 🎯 Overview
 
@@ -61,7 +61,7 @@ This is the **.NET version** of the Security Log Collection Agent, offering supe
 ### Prerequisites
 
 - **Windows 10/11** or **Windows Server 2016+**
-- **.NET 6.0 Runtime** or SDK
+- **.NET 8.0 Runtime** or SDK
 - **Administrator privileges**
 
 ### Build
@@ -75,7 +75,7 @@ dotnet build -c Release
 ### Run
 
 ```bash
-cd SecurityAgent/bin/Release/net6.0
+cd SecurityAgent/bin/Release/net8.0
 SecurityAgent.exe
 ```
 
@@ -247,9 +247,9 @@ Event ID: 4625 TimeCreated: 2025-11-10T08:25:31 LogonType: 3 TargetUserName: Adm
 
 ### Missing .NET Runtime
 
-**Solution:** Install .NET 6.0 Runtime
+**Solution:** Install .NET 8.0 Runtime
 
-https://dotnet.microsoft.com/download/dotnet/6.0
+https://dotnet.microsoft.com/download/dotnet/8.0
 
 ### WMI Errors (Process Collector)
 
@@ -280,7 +280,7 @@ sc.exe query Winmgmt
 ### Requirements
 
 - Visual Studio 2022 or VS Code
-- .NET 6.0 SDK
+- .NET 8.0 SDK
 - Windows 10+
 
 ### Build & Test

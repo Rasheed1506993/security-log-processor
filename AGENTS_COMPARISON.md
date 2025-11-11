@@ -132,7 +132,7 @@ watcher.Created += OnFileCreated;
 ### C# .NET Agent
 
 **Required:**
-- .NET 6.0 Runtime (or self-contained)
+- .NET 8.0 Runtime (or self-contained)
 
 **NuGet Packages:**
 - Newtonsoft.Json
@@ -238,7 +238,7 @@ watcher.Created += OnFileCreated;
 - Maintenance: Moderate
 
 **Deployment:**
-- Runtime: .NET 6.0 or self-contained
+- Runtime: .NET 8.0 or self-contained
 - Updates: Requires recompilation
 - Distribution: **Single executable**
 

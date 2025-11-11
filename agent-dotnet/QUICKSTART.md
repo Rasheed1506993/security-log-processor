@@ -2,9 +2,9 @@
 
 ## 🚀 3 Steps to Get Started
 
-### Step 1: Install .NET 6.0 Runtime
+### Step 1: Install .NET 8.0 Runtime
 
-Download from: https://dotnet.microsoft.com/download/dotnet/6.0
+Download from: https://dotnet.microsoft.com/download/dotnet/8.0
 
 Verify installation:
 ```bash
@@ -21,7 +21,7 @@ dotnet build -c Release
 ### Step 3: Run
 
 ```bash
-cd SecurityAgent\bin\Release\net6.0
+cd SecurityAgent\bin\Release\net8.0
 SecurityAgent.exe
 ```
 
@@ -137,7 +137,7 @@ Press `Ctrl+C` to gracefully stop the agent.
 | Problem | Solution |
 |---------|----------|
 | "Access Denied" | Run as Administrator |
-| "dotnet not found" | Install .NET 6.0 Runtime |
+| "dotnet not found" | Install .NET 8.0 Runtime |
 | High CPU usage | Increase poll_interval |
 | No events | Check Event Log service is running |
 
